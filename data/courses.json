@@ -1,0 +1,33 @@
+[
+	{
+		"id": 201,
+		"title": "Intro to Machine Learning",
+		"topics": [
+			"Machine Learning",
+			"Linear Algebra"
+		]
+	},
+	{
+		"id": 202,
+		"title": "Probability and Statistics",
+		"topics": [
+			"Probability"
+		]
+	},
+	{
+		"id": 203,
+		"title": "Advanced Data Structures",
+		"topics": [
+			"Data Structures",
+			"Algorithms"
+		]
+	},
+	{
+		"id": 204,
+		"title": "Mathematics for ML",
+		"topics": [
+			"Linear Algebra",
+			"Probability"
+		]
+	}
+]

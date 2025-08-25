@@ -1,0 +1,19 @@
+# Core LangChain + OpenAI integration
+langchain==0.3.7
+langchain-community==0.3.6
+langchain-openai==0.2.8
+openai==1.60.1
+tiktoken==0.8.0
+
+# Env management
+python-dotenv==1.0.1
+
+# REST API support
+fastapi==0.115.0
+uvicorn==0.30.6
+
+# HTTP utilities
+requests==2.32.3
+
+# Data validation (for REST request/response models)
+pydantic==2.9.2

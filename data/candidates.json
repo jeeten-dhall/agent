@@ -1,0 +1,32 @@
+[
+	{
+		"id": 1,
+		"name": "Timo",
+		"topics": {
+			"Data Structures": 0.6,
+			"Algorithms": 0.8,
+			"SQL": 0.6,
+			"Linear Algebra": 0.4
+		}
+	},
+	{
+		"id": 2,
+		"name": "Matthew",
+		"topics": {
+			"Data Structures": 0.9,
+			"Algorithms": 0.8,
+			"Probability": 0.6,
+			"Linear Algebra": 0.4
+		}
+	},
+	{
+		"id": 3,
+		"name": "Michael",
+		"topics": {
+			"Machine Learning": 0.7,
+			"Algorithms": 0.6,
+			"SQL": 0.8,
+			"Linear Algebra": 0.7
+		}
+	}
+]
