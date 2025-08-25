@@ -23,7 +23,6 @@ def skill_gap(candidate_id: int, job_id: int):
         "structured": result
     }
 
-
 @app.get("/job/{job_id}/matching-candidates")
 def matching_candidates(job_id: int):
     agent = JobAgent()

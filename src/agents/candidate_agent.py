@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+import os
+
 from agents.base_agent import BaseAgent
 
 from typing import Dict, Any
@@ -48,3 +51,9 @@ class CandidateAgent(BaseAgent):
             "summary": summary,
             "structured": structured.content
         }
+
+if __name__ == "__main__":
+    candidate_agent = CandidateAgent()
+
+    # Candidate perspective
+    print(candidate_agent.getSkillGap(1, 101))

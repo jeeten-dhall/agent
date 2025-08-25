@@ -13,3 +13,9 @@ class CourseAgent(BaseAgent):
             f"which courses best fill the missing topics?"
         )
         return self.run(query)
+
+if __name__ == "__main__":
+    course_agent = CourseAgent()
+
+    # Content provider perspective
+    print(course_agent.getCoursesForSkillGap(1, 101))

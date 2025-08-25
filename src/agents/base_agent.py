@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from langchain.agents import initialize_agent, Tool, AgentType
 from langchain_openai import ChatOpenAI
 from services.candidate_service import get_candidate_topics
@@ -10,6 +11,7 @@ class BaseAgent:
     def __init__(self, name, llm=None, verbose=True, model="gpt-4o-mini"):
         self.name = name
 
+        load_dotenv()  # take variables from .env
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY not set. Did you load .env?")

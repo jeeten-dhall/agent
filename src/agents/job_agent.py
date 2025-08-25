@@ -43,3 +43,9 @@ class JobAgent(BaseAgent):
             "summary": summary,
             "structured": structured.content
         }
+
+if __name__ == "__main__":
+    job_agent = JobAgent()
+
+    # Recruiter perspective
+    print(job_agent.getMatchingCandidates(101))
