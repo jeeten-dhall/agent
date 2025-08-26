@@ -52,8 +52,74 @@ class CandidateAgent(BaseAgent):
             "structured": structured.content
         }
 
+    def getCareerPath(self, candidate_id: int, desired_job_id: int) -> Dict[str, Any]:
+        """
+        Suggest a step-by-step career path or learning plan to reach the desired job.
+        Returns summary and structured JSON.
+        """
+        query = (
+            f"Candidate id {candidate_id} wants to become job id {desired_job_id}. "
+            f"Suggest a learning path and milestones with timelines."
+        )
+        summary = self.run(query)
+
+        json_prompt = PromptTemplate.from_template("""
+        Extract structured JSON from the following summary.
+
+        Summary:
+        {summary}
+
+        Return JSON with the following format:
+        {{
+          "candidate_id": {candidate_id},
+          "job_id": {desired_job_id},
+          "milestones": [ {{ "topic": str, "target_level": float, "suggested_courses": [str] }} ],
+          "timeline_months": int,
+          "explanation": str
+        }}
+        """)
+        structured = self.llm.invoke(
+            json_prompt.format(
+                summary=summary,
+                candidate_id=candidate_id,
+                desired_job_id=desired_job_id
+            )
+        )
+
+        return {"summary": summary, "structured": structured.content}
+
+    def getSkillsReport(self, candidate_id: int) -> Dict[str, Any]:
+        """
+        Generate candidate's skill report.
+        """
+        query = f"Candidate id {candidate_id}: summarize strengths, weaknesses, and opportunities in topics."
+        summary = self.run(query)
+
+        json_prompt = PromptTemplate.from_template("""
+        Extract structured JSON from the following summary.
+
+        Summary:
+        {summary}
+
+        Return JSON with the following format:
+        {{
+          "candidate_id": {candidate_id},
+          "strengths": [ {{ "topic": str, "score": float }} ],
+          "weaknesses": [ {{ "topic": str, "score": float }} ],
+          "opportunities": [ {{ "topic": str, "recommendation": str }} ]
+        }}
+        """)
+        structured = self.llm.invoke(
+            json_prompt.format(summary=summary, candidate_id=candidate_id)
+        )
+
+        return {"summary": summary, "structured": structured.content}
+
 if __name__ == "__main__":
     candidate_agent = CandidateAgent()
 
-    # Candidate perspective
-    print(candidate_agent.getSkillGap(1, 101))
+    # print(candidate_agent.getSkillGap(1, 101))
+
+    # print(candidate_agent.getCareerPath(1, 101))
+    print(candidate_agent.getSkillsReport(1))
+

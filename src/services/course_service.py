@@ -36,6 +36,8 @@ def search_courses_by_topic(topic: str):
     Input: topic name (e.g. "Probability").
     Returns: list of matching courses.
     """
+    topic = topic.strip().strip("'\"")  # remove stray quotes
+
     if not os.path.exists(COURSES_FILE):
         return {"error": f"File {COURSES_FILE} not found"}
 
