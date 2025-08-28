@@ -4,6 +4,8 @@ from typing import List
 import json
 import os
 
+from api.cache import cache_key, cache_get, cache_set
+
 # ✅ load .env
 load_dotenv()
 
@@ -33,19 +35,37 @@ def root():
 # ======================================================
 
 @app.get("/candidate/{candidate_id}/job/{job_id}/skill-gap")
-def candidate_skill_gap(candidate_id: int, job_id: int):
+def skill_gap(candidate_id: int, job_id: int):
+    key = cache_key("skill_gap", {"candidate_id": candidate_id, "job_id": job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = CandidateAgent()
-    return agent.getSkillGap(candidate_id, job_id)
+    result = agent.getSkillGap(candidate_id, job_id)
+    cache_set(key, result)
+    return result
 
 @app.get("/candidate/{candidate_id}/career-path/{desired_job_id}")
 def candidate_career_path(candidate_id: int, desired_job_id: int):
+    key = cache_key("career_path", {"candidate_id": candidate_id, "desired_job_id": desired_job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = CandidateAgent()
-    return agent.getCareerPath(candidate_id, desired_job_id)
+    result = agent.getCareerPath(candidate_id, desired_job_id)
+    cache_set(key, result)
+    return result
 
 @app.get("/candidate/{candidate_id}/skills-report")
 def candidate_skills_report(candidate_id: int):
+    key = cache_key("skills_report", {"candidate_id": candidate_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = CandidateAgent()
-    return agent.getSkillsReport(candidate_id)
+    result = agent.getSkillsReport(candidate_id)
+    cache_set(key, result)
+    return result
 
 # ======================================================
 # JobAgent endpoints
@@ -53,18 +73,36 @@ def candidate_skills_report(candidate_id: int):
 
 @app.get("/job/{job_id}/matching-candidates")
 def job_matching_candidates(job_id: int):
+    key = cache_key("matching_candidates", {"job_id": job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = JobAgent()
-    return agent.getMatchingCandidates(job_id)
+    result = agent.getMatchingCandidates(job_id)
+    cache_set(key, result)
+    return result
 
 @app.get("/job/{job_id}/candidate/{candidate_id}/skills-report")
 def job_candidate_skills_report(candidate_id: int, job_id: int):
+    key = cache_key("job_candidate_skills_report", {"candidate_id": candidate_id, "job_id": job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = JobAgent()
-    return agent.getSkillsReportAndJobReadiness(candidate_id, job_id)
+    result = agent.getSkillsReportAndJobReadiness(candidate_id, job_id)
+    cache_set(key, result)
+    return result
 
 @app.get("/job/{job_id}/explain-ranking")
 def job_explain_ranking(job_id: int):
+    key = cache_key("explain_ranking", {"job_id": job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = JobAgent()
-    return agent.explainCandidateRanking(job_id)
+    result = agent.explainCandidateRanking(job_id)
+    cache_set(key, result)
+    return result
 
 # ======================================================
 # CourseAgent endpoints
@@ -72,26 +110,44 @@ def job_explain_ranking(job_id: int):
 
 @app.get("/courses/recommendations/candidate/{candidate_id}/job/{job_id}")
 def course_recommendations(candidate_id: int, job_id: int):
+    key = cache_key("course_recommendations", {"candidate_id": candidate_id, "job_id": job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = CourseAgent()
-    return agent.getCoursesForSkillGap(candidate_id, job_id)
+    result = agent.getCoursesForSkillGap(candidate_id, job_id)
+    cache_set(key, result)
+    return result
 
 @app.get("/courses/analyze-coverage")
 def analyze_course_coverage(
     course_ids: List[int] = Query(..., description="List of course IDs"),
     target_topics: List[str] = Query(..., description="List of target topics"),
 ):
+    key = cache_key("analyze_coverage", {"course_ids": course_ids, "target_topics": target_topics})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = CourseAgent()
-    return agent.analyzeCourseCoverage(course_ids, target_topics)
+    result = agent.analyzeCourseCoverage(course_ids, target_topics)
+    cache_set(key, result)
+    return result
 
 @app.get("/courses/suggest-new")
 def suggest_new_courses(
     missing_topics: List[str] = Query(..., description="List of missing topics"),
 ):
+    key = cache_key("suggest_new_courses", {"missing_topics": missing_topics})
+    cached = cache_get(key)
+    if cached:
+        return cached
     agent = CourseAgent()
-    return agent.suggestNewCourses(missing_topics)
+    result = agent.suggestNewCourses(missing_topics)
+    cache_set(key, result)
+    return result
 
 # ======================================================
-# NEW: direct JSON data endpoints
+# NEW: direct JSON data endpoints (no cache)
 # ======================================================
 
 @app.get("/candidates")
