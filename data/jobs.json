@@ -28,5 +28,26 @@
 			"Linear Algebra": 0.7,
 			"Machine Learning": 0.7
 		}
+	},
+	{
+		"id": 104,
+		"title": "Deep Learning Engineer",
+		"required_topics": {
+			"Probability": 0.7,
+			"Linear Algebra": 0.7,
+			"Machine Learning": 0.7,
+			"Deep Learning": 0.7
+		}
+	},
+	{
+		"id": 105,
+		"title": "Large-Language Models Engineer",
+		"required_topics": {
+			"Probability": 0.7,
+			"Linear Algebra": 0.7,
+			"Machine Learning": 0.7,
+			"Deep Learning": 0.7,
+			"Transformers": 0.7
+		}
 	}
 ]

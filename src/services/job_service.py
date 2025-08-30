@@ -30,6 +30,16 @@ def get_job_requirements(input_str: str):
 
     return {"error": f"Job with id={job_id} not found"}
 
+def list_jobs(input_str: str = None):
+    """
+    Return list of all jobs.
+    LangChain Tool passes an argument, so input_str is optional and ignored.
+    """
+    if not os.path.exists(JOBS_FILE):
+        return {"error": f"File {JOBS_FILE} not found"}
+
+    with open(JOBS_FILE, "r") as f:
+        return json.load(f)
 
 # -----------------------
 # Test block
@@ -56,3 +66,7 @@ if __name__ == "__main__":
     result4 = get_job_requirements("abc")
     print("Input: 'abc'")
     print("Output:", result4, "\n")
+
+    result5 = list_jobs()
+    print("List of jobs:")
+    print(result5)

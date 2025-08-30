@@ -1,0 +1,23 @@
+{
+	"summary": "Matthew has strengths in Data Structures and Algorithms, weaknesses in Probability and Linear Algebra, and needs to learn Machine Learning. He should take "Mathematics for ML" to improve in Linear Algebra and "Intro to Machine Learning" to learn Machine Learning. He could be ready for the job in about 2-3 months.",
+	"structured": "```json
+{
+  "candidate_id": 2,
+  "job_id": 101,
+  "strengths": [
+    { "topic": "Data Structures", "score": 4.0 },
+    { "topic": "Algorithms", "score": 4.0 }
+  ],
+  "weaknesses": [
+    { "topic": "Probability", "score": 2.0 },
+    { "topic": "Linear Algebra", "score": 2.0 }
+  ],
+  "opportunities": [
+    { "topic": "Linear Algebra", "recommendation": "Take 'Mathematics for ML' to improve in Linear Algebra" },
+    { "topic": "Machine Learning", "recommendation": "Take 'Intro to Machine Learning' to learn Machine Learning" }
+  ]
+}
+``` 
+
+(Note: The scores for strengths and weaknesses are assumed as placeholders. You may adjust them based on actual evaluations.)"
+}

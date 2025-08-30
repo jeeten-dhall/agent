@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from typing import List
 import json
@@ -8,6 +9,10 @@ from api.cache import cache_key, cache_get, cache_set
 
 # ✅ load .env
 load_dotenv()
+
+from services.candidate_service import list_candidates
+from services.job_service import list_jobs
+from services.course_service import list_courses
 
 from agents.candidate_agent import CandidateAgent
 from agents.job_agent import JobAgent
@@ -25,6 +30,15 @@ JOBS_FILE = os.path.join(DATA_DIR, "jobs.json")
 COURSES_FILE = os.path.join(DATA_DIR, "courses.json")
 
 app = FastAPI()
+
+# ✅ Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],   # allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],   # allow all headers
+)
 
 @app.get("/")
 def root():
@@ -147,26 +161,80 @@ def suggest_new_courses(
     return result
 
 # ======================================================
+# New CourseAgent endpoints
+# ======================================================
+
+@app.get("/course/{course_id}/improvement-suggestions")
+def course_improvement_suggestions(course_id: int):
+    key = cache_key("course_improvement_suggestions", {"course_id": course_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    agent = CourseAgent()
+    result = agent.getCourseImprovementSuggestions(course_id)
+    cache_set(key, result)
+    return result
+
+
+@app.get("/courses/most-in-demand-topics")
+def courses_most_in_demand_topics():
+    key = cache_key("courses_most_in_demand_topics", {})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    agent = CourseAgent()
+    result = agent.getMostInDemandTopics()
+    cache_set(key, result)
+    return result
+
+
+@app.get("/course/{course_id}/market-fit")
+def course_market_fit(course_id: int):
+    key = cache_key("course_market_fit", {"course_id": course_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    agent = CourseAgent()
+    result = agent.getCourseMarketFit(course_id)
+    cache_set(key, result)
+    return result
+
+
+@app.get("/course/{course_id}/competitor-analysis")
+def course_competitor_analysis(course_id: int):
+    key = cache_key("course_competitor_analysis", {"course_id": course_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    agent = CourseAgent()
+    result = agent.getCourseCompetitorAnalysis(course_id)
+    cache_set(key, result)
+    return result
+
+
+@app.get("/courses/emerging-topics")
+def courses_emerging_topics():
+    key = cache_key("courses_emerging_topics", {})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    agent = CourseAgent()
+    result = agent.getEmergingTopicsForCourses()
+    cache_set(key, result)
+    return result
+
+# ======================================================
 # NEW: direct JSON data endpoints (no cache)
 # ======================================================
 
 @app.get("/candidates")
 def get_all_candidates():
-    if not os.path.exists(CANDIDATES_FILE):
-        return {"error": f"{CANDIDATES_FILE} not found"}
-    with open(CANDIDATES_FILE, "r") as f:
-        return json.load(f)
+    return list_candidates()
 
 @app.get("/jobs")
 def get_all_jobs():
-    if not os.path.exists(JOBS_FILE):
-        return {"error": f"{JOBS_FILE} not found"}
-    with open(JOBS_FILE, "r") as f:
-        return json.load(f)
+    return list_jobs()
 
 @app.get("/courses")
 def get_all_courses():
-    if not os.path.exists(COURSES_FILE):
-        return {"error": f"{COURSES_FILE} not found"}
-    with open(COURSES_FILE, "r") as f:
-        return json.load(f)
+    return list_courses()

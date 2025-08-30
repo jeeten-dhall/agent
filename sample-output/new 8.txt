@@ -1,0 +1,366 @@
+To analyze the course with id 201, I need to first retrieve the course details, including the topics it covers. After that, I will need to gather job requirements to see what topics are required for relevant jobs. Finally, I will check candidate skills to identify any gaps. This will help in suggesting improvements for the course.
+
+Action: Course Service  
+Action Input: 201  
+Observation: {'id': 201, 'title': 'Intro to Machine Learning', 'topics': ['Machine Learning', 'Linear Algebra']}
+Thought:I have retrieved the course details for "Intro to Machine Learning," which covers the topics "Machine Learning" and "Linear Algebra." Next, I need to find job requirements related to machine learning to see what additional topics are necessary for candidates to be competitive in the job market.
+
+Action: List Jobs  
+Action Input: None  
+Observation: [{'id': 101, 'title': 'Machine Learning Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'Probability': 0.6, 'Linear Algebra': 0.6, 'Machine Learning': 0.7}}, {'id': 102, 'title': 'Software Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'SQL': 0.6, 'Machine Learning': 0.5}}, {'id': 103, 'title': 'Data Scientist', 'required_topics': {'Probability': 0.6, 'Linear Algebra': 0.7, 'Machine Learning': 0.7}}, {'id': 104, 'title': 'Deep Learning Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7}}, {'id': 105, 'title': 'Large-Language Models Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7, 'Transformers': 0.7}}]
+Thought:I have retrieved job requirements for several positions related to machine learning. The required topics for these jobs include:
+
+1. **Machine Learning** (0.7)
+2. **Linear Algebra** (0.6)
+3. **Data Structures** (0.7)
+4. **Algorithms** (0.7)
+5. **Probability** (0.6)
+6. **SQL** (0.6)
+7. **Deep Learning** (0.7)
+8. **Transformers** (0.7)
+
+The course "Intro to Machine Learning" covers "Machine Learning" and "Linear Algebra," but it does not include several other important topics such as "Data Structures," "Algorithms," "Probability," "SQL," "Deep Learning," and "Transformers." 
+
+Next, I need to check the skills of candidates to identify any gaps in their knowledge that the course could address.
+
+Action: List Candidates  
+Action Input: None  
+Observation: [{'id': 1, 'name': 'Timo', 'topics': {'Data Structures': 0.6, 'Algorithms': 0.8, 'SQL': 0.6, 'Linear Algebra': 0.4}}, {'id': 2, 'name': 'Matthew', 'topics': {'Data Structures': 0.9, 'Algorithms': 0.8, 'Probability': 0.6, 'Linear Algebra': 0.4}}, {'id': 3, 'name': 'Michael', 'topics': {'Machine Learning': 0.7, 'Algorithms': 0.6, 'SQL': 0.8, 'Linear Algebra': 0.7}}]
+Thought:I have retrieved the skills of three candidates. Here are their skills:
+
+1. **Timo**: 
+   - Data Structures: 0.6
+   - Algorithms: 0.8
+   - SQL: 0.6
+   - Linear Algebra: 0.4
+
+2. **Matthew**: 
+   - Data Structures: 0.9
+   - Algorithms: 0.8
+   - Probability: 0.6
+   - Linear Algebra: 0.4
+
+3. **Michael**: 
+   - Machine Learning: 0.7
+   - Algorithms: 0.6
+   - SQL: 0.8
+   - Linear Algebra: 0.7
+
+From the analysis, the following gaps can be identified:
+
+- **Data Structures**: All candidates have varying levels of knowledge, but Timo and Matthew could benefit from more in-depth coverage.
+- **Algorithms**: Most candidates have a good grasp, but Michael could use more practice.
+- **SQL**: Michael has a strong score, but Timo and Matthew could improve.
+- **Linear Algebra**: All candidates have lower scores, indicating a need for more focus.
+- **Probability**: Only Matthew has some knowledge, suggesting this topic should be included.
+- **Deep Learning** and **Transformers**: None of the candidates have exposure to these topics, indicating a significant gap.
+
+To improve the course "Intro to Machine Learning," I suggest the following:
+
+1. **Add Missing Topics**: Include "Data Structures," "Algorithms," "Probability," "Deep Learning," and "Transformers" to cover the gaps identified in job requirements and candidate skills.
+2. **Update Outdated Topics**: Ensure that the content on "Linear Algebra" is up-to-date and relevant to current machine learning practices.
+3. **Provide More Practical Exercises**: Incorporate hands-on projects and exercises that allow candidates to apply their knowledge in real-world scenarios, especially in areas like "Deep Learning" and "Transformers."
+
+Final Answer: To improve the course "Intro to Machine Learning," add topics such as "Data Structures," "Algorithms," "Probability," "Deep Learning," and "Transformers." Update the content on "Linear Algebra" and provide more practical exercises to enhance learning outcomes.
+
+> Finished chain.
+{'summary': 'To improve the course "Intro to Machine Learning," add topics such as "Data Structures," "Algorithms," "Probability," "Deep Learning," and "Transformers." Update the content on "Linear Algebra" and provide more practical exercises to enhance learning outcomes.', 'structured': '```json\n{\n  "course_id": 1,\n  "improvements": [\n    "Add more practical exercises to enhance learning outcomes"\n  ],\n  "missing_topics": [\n    "Data Structures",\n    "Algorithms",\n    "Probability",\n    "Deep Learning",\n    "Transformers"\n  ],\n  "outdated_topics": [\n    "Linear Algebra"\n  ],\n  "practical_exercises": [\n    "Provide more practical exercises"\n  ]\n}\n```'}
+
+--- getMostInDemandTopics ---
+
+[Course Agent] Running query: Analyze the job requirements across all jobs and compare them with the coverage of existing courses. Identify the most in-demand topics that are currently underrepresented in the course catalog.
+
+
+> Entering new AgentExecutor chain...
+To analyze the job requirements and compare them with the existing courses, I will first list all the jobs to gather their requirements. Then, I will list all the courses to see which topics are covered. Finally, I will identify the topics that are in high demand based on job requirements but are not sufficiently covered by the courses.
+
+Action: List Jobs
+Action Input: None
+Observation: [{'id': 101, 'title': 'Machine Learning Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'Probability': 0.6, 'Linear Algebra': 0.6, 'Machine Learning': 0.7}}, {'id': 102, 'title': 'Software Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'SQL': 0.6, 'Machine Learning': 0.5}}, {'id': 103, 'title': 'Data Scientist', 'required_topics': {'Probability': 0.6, 'Linear Algebra': 0.7, 'Machine Learning': 0.7}}, {'id': 104, 'title': 'Deep Learning Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7}}, {'id': 105, 'title': 'Large-Language Models Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7, 'Transformers': 0.7}}]
+Thought:I have gathered the job requirements for five different positions. Now, I will list all the courses to see which topics are currently covered in the course catalog.
+
+Action: List Courses  
+Action Input: None  
+Observation: [{'id': 201, 'title': 'Intro to Machine Learning', 'topics': ['Machine Learning', 'Linear Algebra']}, {'id': 202, 'title': 'Probability and Statistics', 'topics': ['Probability']}, {'id': 203, 'title': 'Advanced Data Structures', 'topics': ['Data Structures', 'Algorithms']}, {'id': 204, 'title': 'Mathematics for ML', 'topics': ['Linear Algebra', 'Probability']}]
+Thought:I have now gathered the job requirements and the courses available. The next step is to analyze the topics required by the jobs and compare them with the topics covered by the courses. I will identify which topics are in high demand (based on job requirements) but are not sufficiently covered by the courses.
+
+### Job Requirements:
+1. **Machine Learning Engineer**: 
+   - Data Structures: 0.7
+   - Algorithms: 0.7
+   - Probability: 0.6
+   - Linear Algebra: 0.6
+   - Machine Learning: 0.7
+
+2. **Software Engineer**: 
+   - Data Structures: 0.7
+   - Algorithms: 0.7
+   - SQL: 0.6
+   - Machine Learning: 0.5
+
+3. **Data Scientist**: 
+   - Probability: 0.6
+   - Linear Algebra: 0.7
+   - Machine Learning: 0.7
+
+4. **Deep Learning Engineer**: 
+   - Probability: 0.7
+   - Linear Algebra: 0.7
+   - Machine Learning: 0.7
+   - Deep Learning: 0.7
+
+5. **Large-Language Models Engineer**: 
+   - Probability: 0.7
+   - Linear Algebra: 0.7
+   - Machine Learning: 0.7
+   - Deep Learning: 0.7
+   - Transformers: 0.7
+
+### Courses Available:
+1. **Intro to Machine Learning**: 
+   - Topics: Machine Learning, Linear Algebra
+
+2. **Probability and Statistics**: 
+   - Topics: Probability
+
+3. **Advanced Data Structures**: 
+   - Topics: Data Structures, Algorithms
+
+4. **Mathematics for ML**: 
+   - Topics: Linear Algebra, Probability
+
+### Analysis:
+- **Covered Topics**: 
+  - Machine Learning: Covered
+  - Linear Algebra: Covered
+  - Probability: Covered
+  - Data Structures: Covered
+  - Algorithms: Covered
+
+- **Underrepresented Topics**:
+  - Deep Learning: Not covered
+  - Transformers: Not covered
+  - SQL: Not covered
+
+### Conclusion:
+The most in-demand topics that are currently underrepresented in the course catalog are:
+1. Deep Learning
+2. Transformers
+3. SQL
+
+Thought: I have identified the most in-demand topics that are currently underrepresented in the course catalog.
+Final Answer: The most in-demand topics that are currently underrepresented in the course catalog are Deep Learning, Transformers, and SQL.
+
+> Finished chain.
+{'summary': 'The most in-demand topics that are currently underrepresented in the course catalog are Deep Learning, Transformers, and SQL.', 'structured': '```json\n{\n  "in_demand_topics": ["Deep Learning", "Transformers", "SQL"],\n  "underrepresented_in_courses": ["Deep Learning", "Transformers", "SQL"]\n}\n```'}
+
+--- getCourseMarketFit ---
+
+[Course Agent] Running query: Evaluate course with id 202 against the skill requirements in jobs and current candidate skills. Determine how well this course addresses market demand and where it falls short.
+
+
+> Entering new AgentExecutor chain...
+To evaluate the course with id 202 against job requirements and current candidate skills, I will first retrieve the details of the course to understand its topics. Then, I will list the jobs to see their required topics and finally check the candidates to see their skills. This will help in assessing how well the course aligns with market demand.
+
+Action: Course Service  
+Action Input: 202  
+Observation: {'id': 202, 'title': 'Probability and Statistics', 'topics': ['Probability']}
+Thought:I have retrieved the course details, which is titled "Probability and Statistics" and covers the topic of "Probability." Next, I will list the jobs to see their required topics and understand the market demand.
+
+Action: List Jobs  
+Action Input: None  
+Observation: [{'id': 101, 'title': 'Machine Learning Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'Probability': 0.6, 'Linear Algebra': 0.6, 'Machine Learning': 0.7}}, {'id': 102, 'title': 'Software Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'SQL': 0.6, 'Machine Learning': 0.5}}, {'id': 103, 'title': 'Data Scientist', 'required_topics': {'Probability': 0.6, 'Linear Algebra': 0.7, 'Machine Learning': 0.7}}, {'id': 104, 'title': 'Deep Learning Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7}}, {'id': 105, 'title': 'Large-Language Models Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7, 'Transformers': 0.7}}]
+Thought:I have retrieved the job listings along with their required topics. The course "Probability and Statistics" covers the topic of "Probability," which is relevant to several job roles. Specifically, the following jobs require the topic of Probability:
+
+1. **Machine Learning Engineer** - Probability (0.6)
+2. **Data Scientist** - Probability (0.6)
+3. **Deep Learning Engineer** - Probability (0.7)
+4. **Large-Language Models Engineer** - Probability (0.7)
+
+Next, I will check the candidates to see their skills and how they align with the job requirements, particularly focusing on the topic of Probability.
+
+Action: List Candidates  
+Action Input: None  
+Observation: [{'id': 1, 'name': 'Timo', 'topics': {'Data Structures': 0.6, 'Algorithms': 0.8, 'SQL': 0.6, 'Linear Algebra': 0.4}}, {'id': 2, 'name': 'Matthew', 'topics': {'Data Structures': 0.9, 'Algorithms': 0.8, 'Probability': 0.6, 'Linear Algebra': 0.4}}, {'id': 3, 'name': 'Michael', 'topics': {'Machine Learning': 0.7, 'Algorithms': 0.6, 'SQL': 0.8, 'Linear Algebra': 0.7}}]
+Thought:I have retrieved the candidate information. Here are the skills of the candidates:
+
+1. **Timo**: 
+   - Data Structures: 0.6
+   - Algorithms: 0.8
+   - SQL: 0.6
+   - Linear Algebra: 0.4
+
+2. **Matthew**: 
+   - Data Structures: 0.9
+   - Algorithms: 0.8
+   - Probability: 0.6
+   - Linear Algebra: 0.4
+
+3. **Michael**: 
+   - Machine Learning: 0.7
+   - Algorithms: 0.6
+   - SQL: 0.8
+   - Linear Algebra: 0.7
+
+Now, I will analyze how well the course "Probability and Statistics" aligns with the job requirements and the candidates' skills, particularly focusing on the topic of Probability.
+
+- **Job Requirements**:
+  - The course covers Probability, which is required by several jobs, with varying importance scores.
+  
+- **Candidate Skills**:
+  - Matthew has a score of 0.6 in Probability, which aligns with the job requirements for Data Scientist and Machine Learning Engineer roles.
+  - Timo and Michael do not have skills in Probability.
+
+**Market Demand Analysis**:
+- The course addresses a significant market demand for roles that require Probability, especially for Data Scientists, Deep Learning Engineers, and Large-Language Models Engineers.
+- However, only one candidate (Matthew) has a relevant skill in Probability, which indicates a potential gap in the candidate pool for jobs requiring this skill.
+
+**Conclusion**:
+The course "Probability and Statistics" is relevant to the job market, particularly for roles that require Probability. However, there is a shortfall in the number of candidates with skills in this area, which suggests that while the course is aligned with market demand, there may be a need for more candidates to take this course to fill the skills gap.
+
+Thought: I now know the final answer.
+Final Answer: The course "Probability and Statistics" addresses market demand well by covering the important topic of Probability, which is required for several job roles. However, there is a shortfall in candidates with skills in Probability, as only one candidate (Matthew) has relevant skills, indicating a potential gap in the candidate pool for jobs requiring this skill.
+
+> Finished chain.
+{'summary': 'The course "Probability and Statistics" addresses market demand well by covering the important topic of Probability, which is required for several job roles. However, there is a shortfall in candidates with skills in Probability, as only one candidate (Matthew) has relevant skills, indicating a potential gap in the candidate pool for jobs requiring this skill.', 'structured': '```json\n{\n  "course_id": 1,\n  "strengths": [\n    "Covers important topic of Probability",\n    "Addresses market demand for job roles requiring Probability"\n  ],\n  "gaps": [\n    "Shortfall in candidates with skills in Probability",\n    "Only one candidate (Matthew) has relevant skills"\n  ],\n  "market_fit_score": 3\n}\n```'}
+
+--- getCourseCompetitorAnalysis ---
+
+[Course Agent] Running query: Compare course with id 203 against other courses covering similar topics. Highlight strengths, weaknesses, and unique differentiators of this course.
+
+
+> Entering new AgentExecutor chain...
+To compare the course with id 203 against other courses covering similar topics, I first need to retrieve the details of course 203. This will include its title and the topics it covers. After that, I can search for other courses that cover the same topics to make a comparison.
+
+Action: Course Service  
+Action Input: 203  
+Observation: {'id': 203, 'title': 'Advanced Data Structures', 'topics': ['Data Structures', 'Algorithms']}
+Thought:I have retrieved the details of course 203, which is titled "Advanced Data Structures" and covers the topics of "Data Structures" and "Algorithms." Next, I will search for other courses that cover these topics to facilitate a comparison.
+
+Action: Course Search  
+Action Input: 'Data Structures'  
+Observation: [{'id': 203, 'title': 'Advanced Data Structures', 'topics': ['Data Structures', 'Algorithms']}]
+Thought:It seems that the search for courses covering the topic "Data Structures" returned only the course with id 203 itself. I will now search for courses covering the second topic, "Algorithms," to see if there are any additional courses available.
+
+Action: Course Search  
+Action Input: 'Algorithms'  
+Observation: [{'id': 203, 'title': 'Advanced Data Structures', 'topics': ['Data Structures', 'Algorithms']}]
+Thought:It appears that the searches for both "Data Structures" and "Algorithms" returned only the course with id 203, indicating that there are no other courses available covering these topics. This limits the ability to compare course 203 against other courses. 
+
+Since I have no other courses to compare against, I will summarize the strengths, weaknesses, and unique differentiators of the course based on the information available.
+
+Strengths:
+- The course "Advanced Data Structures" covers essential topics that are foundational for understanding complex algorithms and data management.
+- It likely provides in-depth knowledge and practical skills in both data structures and algorithms, which are critical for software development and computer science.
+
+Weaknesses:
+- The lack of alternative courses means there is no competitive context to evaluate its effectiveness or value against other offerings.
+- If the course is the only one available, it may not provide a variety of perspectives or teaching styles that other courses could offer.
+
+Unique Differentiators:
+- Being the sole course available on these topics, it may have a unique curriculum or approach that is not found elsewhere.
+- The course may offer specialized content or advanced techniques that are not covered in more introductory courses.
+
+Thought: I now know the final answer
+Final Answer: The course "Advanced Data Structures" (id 203) is the only course available covering the topics of Data Structures and Algorithms. Its strengths include providing essential knowledge in these foundational areas, while its weaknesses stem from the lack of alternative courses for comparison. Its unique differentiator is that it is the sole offering on these topics, potentially providing specialized content not found elsewhere.
+
+> Finished chain.
+{'summary': 'The course "Advanced Data Structures" (id 203) is the only course available covering the topics of Data Structures and Algorithms. Its strengths include providing essential knowledge in these foundational areas, while its weaknesses stem from the lack of alternative courses for comparison. Its unique differentiator is that it is the sole offering on these topics, potentially providing specialized content not found elsewhere.', 'structured': '```json\n{\n  "course_id": 203,\n  "competitors": [],\n  "strengths": [\n    "Providing essential knowledge in Data Structures and Algorithms"\n  ],\n  "weaknesses": [\n    "Lack of alternative courses for comparison"\n  ],\n  "unique_differentiators": [\n    "Sole offering on Data Structures and Algorithms topics",\n    "Potentially providing specialized content not found elsewhere"\n  ]\n}\n```'}
+
+--- getEmergingTopicsForCourses ---
+
+[Course Agent] Running query: Identify emerging or trending topics in jobs that are not yet adequately covered by existing courses. Recommend new areas where course creators should develop content.
+
+
+> Entering new AgentExecutor chain...
+To identify emerging or trending topics in jobs that are not adequately covered by existing courses, I will first list the available jobs and their required topics. Then, I will list the existing courses and their topics. By comparing the two, I can identify gaps where job requirements are not met by current courses.
+
+Action: List Jobs  
+Action Input: None  
+Observation: [{'id': 101, 'title': 'Machine Learning Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'Probability': 0.6, 'Linear Algebra': 0.6, 'Machine Learning': 0.7}}, {'id': 102, 'title': 'Software Engineer', 'required_topics': {'Data Structures': 0.7, 'Algorithms': 0.7, 'SQL': 0.6, 'Machine Learning': 0.5}}, {'id': 103, 'title': 'Data Scientist', 'required_topics': {'Probability': 0.6, 'Linear Algebra': 0.7, 'Machine Learning': 0.7}}, {'id': 104, 'title': 'Deep Learning Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7}}, {'id': 105, 'title': 'Large-Language Models Engineer', 'required_topics': {'Probability': 0.7, 'Linear Algebra': 0.7, 'Machine Learning': 0.7, 'Deep Learning': 0.7, 'Transformers': 0.7}}]
+Thought:Now that I have the list of jobs and their required topics, I will proceed to list the existing courses to see what topics they cover. This will help me identify any gaps between job requirements and available courses.
+
+Action: List Courses  
+Action Input: None  
+Observation: [{'id': 201, 'title': 'Intro to Machine Learning', 'topics': ['Machine Learning', 'Linear Algebra']}, {'id': 202, 'title': 'Probability and Statistics', 'topics': ['Probability']}, {'id': 203, 'title': 'Advanced Data Structures', 'topics': ['Data Structures', 'Algorithms']}, {'id': 204, 'title': 'Mathematics for ML', 'topics': ['Linear Algebra', 'Probability']}]
+Thought:I have the list of jobs with their required topics and the list of existing courses with their covered topics. Now, I will compare the required topics for each job with the topics covered by the existing courses to identify any gaps.
+
+1. **Machine Learning Engineer** requires:
+   - Data Structures
+   - Algorithms
+   - Probability
+   - Linear Algebra
+   - Machine Learning
+
+   **Covered by courses**: 
+   - Intro to Machine Learning (Machine Learning, Linear Algebra)
+   - Probability and Statistics (Probability)
+   - Advanced Data Structures (Data Structures, Algorithms)
+   - Mathematics for ML (Linear Algebra, Probability)
+
+   **Gaps**: None
+
+2. **Software Engineer** requires:
+   - Data Structures
+   - Algorithms
+   - SQL
+   - Machine Learning
+
+   **Covered by courses**: 
+   - Intro to Machine Learning (Machine Learning, Linear Algebra)
+   - Advanced Data Structures (Data Structures, Algorithms)
+
+   **Gaps**: SQL
+
+3. **Data Scientist** requires:
+   - Probability
+   - Linear Algebra
+   - Machine Learning
+
+   **Covered by courses**: 
+   - Intro to Machine Learning (Machine Learning, Linear Algebra)
+   - Probability and Statistics (Probability)
+   - Mathematics for ML (Linear Algebra, Probability)
+
+   **Gaps**: None
+
+4. **Deep Learning Engineer** requires:
+   - Probability
+   - Linear Algebra
+   - Machine Learning
+   - Deep Learning
+
+   **Covered by courses**: 
+   - Intro to Machine Learning (Machine Learning, Linear Algebra)
+   - Probability and Statistics (Probability)
+   - Mathematics for ML (Linear Algebra, Probability)
+
+   **Gaps**: Deep Learning
+
+5. **Large-Language Models Engineer** requires:
+   - Probability
+   - Linear Algebra
+   - Machine Learning
+   - Deep Learning
+   - Transformers
+
+   **Covered by courses**: 
+   - Intro to Machine Learning (Machine Learning, Linear Algebra)
+   - Probability and Statistics (Probability)
+   - Mathematics for ML (Linear Algebra, Probability)
+
+   **Gaps**: Deep Learning, Transformers
+
+Based on this analysis, the emerging or trending topics in jobs that are not yet adequately covered by existing courses are:
+
+1. **SQL** - for Software Engineer roles.
+2. **Deep Learning** - for Deep Learning Engineer and Large-Language Models Engineer roles.
+3. **Transformers** - specifically for Large-Language Models Engineer roles.
+
+Thought: I now know the final answer.  
+Final Answer: Course creators should develop content in the following areas: SQL, Deep Learning, and Transformers, as these topics are required by emerging job roles but are not adequately covered by existing courses.
+
+> Finished chain.
+{'summary': 'Course creators should develop content in the following areas: SQL, Deep Learning, and Transformers, as these topics are required by emerging job roles but are not adequately covered by existing courses.', 'structured': '```json\n{\n  "emerging_topics": ["SQL", "Deep Learning", "Transformers"],\n  "recommended_course_ideas": [\n    {\n      "title": "Mastering SQL for Data Analysis",\n      "topics": ["SQL", "Data Analysis", "Database Management"],\n      "target_audience": "Data Analysts, Data Scientists"\n    },\n    {\n      "title": "Deep Learning Fundamentals",\n      "topics": ["Deep Learning", "Neural Networks", "Machine Learning"],\n      "target_audience": "Aspiring AI Engineers, Data Scientists"\n    },\n    {\n      "title": "Transformers in Natural Language Processing",\n      "topics": ["Transformers", "NLP", "Machine Learning"],\n      "target_audience": "AI Researchers, NLP Engineers"\n    }\n  ]\n}\n```'}
+
+Process finished with exit code 0

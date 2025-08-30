@@ -1,0 +1,42 @@
+{'summary': 'Timo should follow this learning path over the next 6 months to improve his skills and meet the job requirements for the Machine Learning Engineer position.', 'structured': '```json
+{
+  "candidate_id": 1,
+  "job_id": 101,
+  "milestones": [
+    {
+      "topic": "Machine Learning Fundamentals",
+      "target_level": 4.0,
+      "suggested_courses": [
+        "Introduction to Machine Learning",
+        "Machine Learning Specialization"
+      ]
+    },
+    {
+      "topic": "Deep Learning",
+      "target_level": 4.5,
+      "suggested_courses": [
+        "Deep Learning Specialization",
+        "Neural Networks and Deep Learning"
+      ]
+    },
+    {
+      "topic": "Data Preprocessing",
+      "target_level": 4.0,
+      "suggested_courses": [
+        "Data Science and Machine Learning Bootcamp",
+        "Data Preprocessing with Python"
+      ]
+    },
+    {
+      "topic": "Model Evaluation and Tuning",
+      "target_level": 4.0,
+      "suggested_courses": [
+        "Machine Learning Model Evaluation",
+        "Hyperparameter Tuning for Machine Learning"
+      ]
+    }
+  ],
+  "timeline_months": 6,
+  "explanation": "Timo should follow this learning path over the next 6 months to improve his skills and meet the job requirements for the Machine Learning Engineer position."
+}
+```'}

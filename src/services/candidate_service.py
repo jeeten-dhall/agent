@@ -30,6 +30,17 @@ def get_candidate_topics(input_str: str):
 
     return {"error": f"Candidate with id={candidate_id} not found"}
 
+def list_candidates(input_str: str = None):
+    """
+    Return list of all candidates.
+    LangChain Tool passes an argument, so input_str is optional and ignored.
+    """
+    if not os.path.exists(CANDIDATES_FILE):
+        return {"error": f"File {CANDIDATES_FILE} not found"}
+
+    with open(CANDIDATES_FILE, "r") as f:
+        return json.load(f)
+
 
 # -----------------------
 # Test block
@@ -56,3 +67,7 @@ if __name__ == "__main__":
     result4 = get_candidate_topics("abc")
     print("Input: 'abc'")
     print("Output:", result4, "\n")
+
+    result5 = list_candidates()
+    print("List of candidates:")
+    print(result5)

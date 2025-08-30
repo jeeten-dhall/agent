@@ -2,10 +2,9 @@ import os
 from dotenv import load_dotenv
 from langchain.agents import initialize_agent, Tool, AgentType
 from langchain_openai import ChatOpenAI
-from services.candidate_service import get_candidate_topics
-from services.job_service import get_job_requirements
-from services.course_service import get_course_details, search_courses_by_topic
-
+from services.candidate_service import get_candidate_topics, list_candidates
+from services.job_service import get_job_requirements, list_jobs
+from services.course_service import get_course_details, search_courses_by_topic, list_courses
 
 class BaseAgent:
     def __init__(self, name, llm=None, verbose=True, model="gpt-4o-mini"):
@@ -37,7 +36,22 @@ class BaseAgent:
                 name="Course Search",
                 func=search_courses_by_topic,
                 description="Search for courses covering a given topic. Input is topic name (e.g. 'Probability')."
-            )
+            ),
+            Tool(
+                name="List Candidates",
+                func=list_candidates,
+                description="List all candidates from the dataset."
+            ),
+            Tool(
+                name="List Jobs",
+                func=list_jobs,
+                description="List all jobs from the dataset."
+            ),
+            Tool(
+                name="List Courses",
+                func=list_courses,
+                description="List all courses from the dataset."
+            ),
         ]
 
         # ✅ Default LLM is ChatOpenAI with GPT-4o-mini
