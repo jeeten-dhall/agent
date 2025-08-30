@@ -62,6 +62,22 @@ def list_courses(input_str: str = None):
     with open(COURSES_FILE, "r") as f:
         return json.load(f)
 
+def get_course_by_id(course_id: int):
+    """
+    Return course dict for a given course_id.
+    """
+    if not os.path.exists(COURSES_FILE):
+        return {"error": f"File {COURSES_FILE} not found"}
+
+    with open(COURSES_FILE, "r") as f:
+        courses = json.load(f)
+
+    for course in courses:
+        if course["id"] == course_id:
+            return course
+
+    return {"error": f"Course with id={course_id} not found"}
+
 # -----------------------
 # Test block
 # -----------------------
@@ -94,3 +110,10 @@ if __name__ == "__main__":
     # --- Test list_courses ---
     print("8. list_courses():")
     print(list_courses(), "\n")
+
+    # --- Test get_course_by_id ---
+    print("9. get_course_by_id(201):")
+    print(get_course_by_id(201), "\n")
+
+    print("10. get_course_by_id(999) (non-existent):")
+    print(get_course_by_id(999), "\n")

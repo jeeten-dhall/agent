@@ -2,9 +2,10 @@ import os
 from dotenv import load_dotenv
 from langchain.agents import initialize_agent, Tool, AgentType
 from langchain_openai import ChatOpenAI
-from services.candidate_service import get_candidate_topics, list_candidates
-from services.job_service import get_job_requirements, list_jobs
-from services.course_service import get_course_details, search_courses_by_topic, list_courses
+from services.candidate_service import get_candidate_topics, list_candidates, get_candidate_by_id
+from services.job_service import get_job_requirements, list_jobs, get_job_by_id
+from services.course_service import get_course_details, search_courses_by_topic, list_courses, get_course_by_id
+
 
 class BaseAgent:
     def __init__(self, name, llm=None, verbose=True, model="gpt-4o-mini"):
@@ -51,6 +52,21 @@ class BaseAgent:
                 name="List Courses",
                 func=list_courses,
                 description="List all courses from the dataset."
+            ),
+            Tool(
+                name="Candidate By ID",
+                func=get_candidate_by_id,
+                description="Return candidate details given a candidate ID. Returns JSON with id, name, and topics."
+            ),
+            Tool(
+                name="Job By ID",
+                func=get_job_by_id,
+                description="Return job details given a job ID. Returns JSON with id, title, and required_topics."
+            ),
+            Tool(
+                name="Course By ID",
+                func=get_course_by_id,
+                description="Return course details given a course ID. Returns JSON with id, title, and topics."
             ),
         ]
 

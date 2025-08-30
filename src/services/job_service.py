@@ -41,6 +41,22 @@ def list_jobs(input_str: str = None):
     with open(JOBS_FILE, "r") as f:
         return json.load(f)
 
+def get_job_by_id(job_id: int):
+    """
+    Return job dict for a given job_id.
+    """
+    if not os.path.exists(JOBS_FILE):
+        return {"error": f"File {JOBS_FILE} not found"}
+
+    with open(JOBS_FILE, "r") as f:
+        jobs = json.load(f)
+
+    for job in jobs:
+        if job["id"] == job_id:
+            return job
+
+    return {"error": f"Job with id={job_id} not found"}
+
 # -----------------------
 # Test block
 # -----------------------
@@ -70,3 +86,10 @@ if __name__ == "__main__":
     result5 = list_jobs()
     print("List of jobs:")
     print(result5)
+
+    # --- Test get_job_by_id ---
+    print("6. get_job_by_id(101):")
+    print(get_job_by_id(101), "\n")
+
+    print("7. get_job_by_id(999) (non-existent):")
+    print(get_job_by_id(999), "\n")

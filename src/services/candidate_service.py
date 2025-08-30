@@ -41,6 +41,21 @@ def list_candidates(input_str: str = None):
     with open(CANDIDATES_FILE, "r") as f:
         return json.load(f)
 
+def get_candidate_by_id(candidate_id: int):
+    """
+    Return candidate dict for a given candidate_id.
+    """
+    if not os.path.exists(CANDIDATES_FILE):
+        return {"error": f"File {CANDIDATES_FILE} not found"}
+
+    with open(CANDIDATES_FILE, "r") as f:
+        candidates = json.load(f)
+
+    for cand in candidates:
+        if cand["id"] == candidate_id:
+            return cand
+
+    return {"error": f"Candidate with id={candidate_id} not found"}
 
 # -----------------------
 # Test block
@@ -71,3 +86,15 @@ if __name__ == "__main__":
     result5 = list_candidates()
     print("List of candidates:")
     print(result5)
+
+    # Test get_candidate_by_id
+    print("Testing get_candidate_by_id...\n")
+    test_id = 1
+    result6 = get_candidate_by_id(test_id)
+    print(f"Input: {test_id}")
+    print("Output:", result6, "\n")
+
+    test_id = 99
+    result7 = get_candidate_by_id(test_id)
+    print(f"Input: {test_id}")
+    print("Output:", result7, "\n")

@@ -10,9 +10,9 @@ from api.cache import cache_key, cache_get, cache_set
 # ✅ load .env
 load_dotenv()
 
-from services.candidate_service import list_candidates
-from services.job_service import list_jobs
-from services.course_service import list_courses
+from services.candidate_service import list_candidates, get_candidate_by_id
+from services.job_service import list_jobs, get_job_by_id
+from services.course_service import list_courses, get_course_by_id
 
 from agents.candidate_agent import CandidateAgent
 from agents.job_agent import JobAgent
@@ -238,3 +238,33 @@ def get_all_jobs():
 @app.get("/courses")
 def get_all_courses():
     return list_courses()
+
+@app.get("/candidates/{candidate_id}")
+def get_candidate(candidate_id: int):
+    key = cache_key("get_candidate", {"candidate_id": candidate_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    result = get_candidate_by_id(candidate_id)
+    cache_set(key, result)
+    return result
+
+@app.get("/courses/{course_id}")
+def get_course(course_id: int):
+    key = cache_key("get_course", {"course_id": course_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    result = get_course_by_id(course_id)
+    cache_set(key, result)
+    return result
+
+@app.get("/jobs/{job_id}")
+def get_job(job_id: int):
+    key = cache_key("get_job", {"job_id": job_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    result = get_job_by_id(job_id)
+    cache_set(key, result)
+    return result
