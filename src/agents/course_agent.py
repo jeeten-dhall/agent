@@ -102,33 +102,32 @@ class CourseAgent(BaseAgent):
 
         return {"summary": summary, "structured": structured.content}
 
-
     def getMostInDemandTopics(self) -> Dict[str, Any]:
         """
-        Identify the most in-demand topics that are required by jobs but not well covered by existing courses.
+        Identify the most in-demand topics across all jobs,
+        regardless of whether courses already cover them.
         """
         query = (
-            "Analyze the job requirements across all jobs and compare them with the coverage of existing courses. "
-            "Identify the most in-demand topics that are currently underrepresented in the course catalog."
+            "Analyze the job requirements across all jobs. "
+            "Identify the most frequently requested topics and skills in the job market. "
+            "Rank them by demand, without considering existing course coverage."
         )
         summary = self.run(query)
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
-          "in_demand_topics": [str],
-          "underrepresented_in_courses": [str]
+          "in_demand_topics": [{{ "topic": str, "demand_score": int }}]
         }}
         """)
         structured = self.llm.invoke(json_prompt.format(summary=summary))
 
         return {"summary": summary, "structured": structured.content}
-
 
     def getCourseMarketFit(self, course_id: int) -> Dict[str, Any]:
         """
