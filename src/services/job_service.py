@@ -41,10 +41,16 @@ def list_jobs(input_str: str = None):
     with open(JOBS_FILE, "r") as f:
         return json.load(f)
 
-def get_job_by_id(job_id: int):
+def get_job_by_id(job_id):
     """
     Return job dict for a given job_id.
+    Handles both int and string inputs.
     """
+    try:
+        job_id = int(job_id)  # normalize input
+    except (ValueError, TypeError):
+        return {"error": f"Invalid job_id: {job_id}"}
+
     if not os.path.exists(JOBS_FILE):
         return {"error": f"File {JOBS_FILE} not found"}
 

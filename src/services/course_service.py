@@ -62,10 +62,15 @@ def list_courses(input_str: str = None):
     with open(COURSES_FILE, "r") as f:
         return json.load(f)
 
-def get_course_by_id(course_id: int):
+def get_course_by_id(course_id):
     """
     Return course dict for a given course_id.
     """
+    try:
+        course_id = int(course_id)  # normalize input
+    except (ValueError, TypeError):
+        return {"error": f"Invalid course_id: {course_id}"}
+
     if not os.path.exists(COURSES_FILE):
         return {"error": f"File {COURSES_FILE} not found"}
 
@@ -77,6 +82,7 @@ def get_course_by_id(course_id: int):
             return course
 
     return {"error": f"Course with id={course_id} not found"}
+
 
 # -----------------------
 # Test block

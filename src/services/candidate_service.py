@@ -41,10 +41,15 @@ def list_candidates(input_str: str = None):
     with open(CANDIDATES_FILE, "r") as f:
         return json.load(f)
 
-def get_candidate_by_id(candidate_id: int):
+def get_candidate_by_id(candidate_id):
     """
     Return candidate dict for a given candidate_id.
     """
+    try:
+        candidate_id = int(candidate_id)  # <-- convert safely
+    except (ValueError, TypeError):
+        return {"error": f"Invalid candidate_id: {candidate_id}"}
+
     if not os.path.exists(CANDIDATES_FILE):
         return {"error": f"File {CANDIDATES_FILE} not found"}
 

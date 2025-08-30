@@ -115,11 +115,52 @@ class CandidateAgent(BaseAgent):
 
         return {"summary": summary, "structured": structured.content}
 
+
+    def getRelevantJobsForCandidate(self, candidate_id: int) -> Dict[str, Any]:
+        """
+        Identify the most relevant jobs for a candidate based on their current skills.
+        Returns both a summary and structured JSON.
+        """
+        query = (
+            f"List the most relevant jobs for candidate id {candidate_id} based on their skills. "
+            f"For each job, include a match score, required gaps, and why it is suitable."
+        )
+        summary = self.run(query)
+
+        json_prompt = PromptTemplate.from_template("""
+        Extract structured JSON from the following summary.
+    
+        Summary:
+        {summary}
+    
+        Return JSON with the following format:
+        {{
+          "candidate_id": {candidate_id},
+          "relevant_jobs": [
+            {{
+              "job_id": int,
+              "title": str,
+              "match_score": float,
+              "missing_topics": [str],
+              "explanation": str
+            }}
+          ]
+        }}
+        """)
+        structured = self.llm.invoke(
+            json_prompt.format(summary=summary, candidate_id=candidate_id)
+        )
+
+        return {"summary": summary, "structured": structured.content}
+
+
 if __name__ == "__main__":
     candidate_agent = CandidateAgent()
 
     # print(candidate_agent.getSkillGap(1, 101))
 
     # print(candidate_agent.getCareerPath(1, 101))
-    print(candidate_agent.getSkillsReport(1))
+    # print(candidate_agent.getSkillsReport(1))
+
+    print(candidate_agent.getRelevantJobsForCandidate(1))
 

@@ -81,6 +81,17 @@ def candidate_skills_report(candidate_id: int):
     cache_set(key, result)
     return result
 
+@app.get("/candidate/{candidate_id}/relevant-jobs")
+def candidate_relevant_jobs(candidate_id: int):
+    key = cache_key("relevant_jobs", {"candidate_id": candidate_id})
+    cached = cache_get(key)
+    if cached:
+        return cached
+    agent = CandidateAgent()
+    result = agent.getRelevantJobsForCandidate(candidate_id)
+    cache_set(key, result)
+    return result
+
 # ======================================================
 # JobAgent endpoints
 # ======================================================
