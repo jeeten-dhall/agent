@@ -1,6 +1,33 @@
-from agents.base_agent import BaseAgent
-from typing import Dict, Any
+import json
+import re
+from typing import Dict, Any, List
 from langchain.prompts import PromptTemplate
+from agents.base_agent import BaseAgent
+
+
+def _parse_llm_json(raw: str) -> Dict[str, Any]:
+    """
+    Extract and parse the first valid JSON object/array from the LLM response.
+    Cleans away markdown fences and extra explanations.
+    """
+    try:
+        cleaned = raw.strip()
+
+        # Remove fenced code block markers like ```json ... ```
+        cleaned = re.sub(r"^```[a-zA-Z]*", "", cleaned, flags=re.MULTILINE)
+        cleaned = re.sub(r"```$", "", cleaned, flags=re.MULTILINE).strip()
+
+        # Try to find the first {...} or [...] block
+        match = re.search(r"(\{.*\}|\[.*\])", cleaned, flags=re.DOTALL)
+        if match:
+            return json.loads(match.group(1))
+
+        # If no block is found, attempt direct parsing
+        return json.loads(cleaned)
+
+    except Exception as e:
+        return {"error": f"Failed to parse JSON: {str(e)}", "raw": raw}
+
 
 class CourseAgent(BaseAgent):
     def __init__(self):
@@ -16,7 +43,7 @@ class CourseAgent(BaseAgent):
         )
         return self.run(query)
 
-    def analyzeCourseCoverage(self, course_ids: list, target_topics: list) -> Dict[str, Any]:
+    def analyzeCourseCoverage(self, course_ids: List[int], target_topics: List[str]) -> Dict[str, Any]:
         """
         Analyze how well courses cover target skills.
         """
@@ -37,13 +64,11 @@ class CourseAgent(BaseAgent):
           "courses": [ {{ "id": int, "title": str, "covered_topics": [str], "missing_topics": [str] }} ]
         }}
         """)
-        structured = self.llm.invoke(
-            json_prompt.format(summary=summary)
-        )
+        structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
-    def suggestNewCourses(self, missing_topics: list) -> Dict[str, Any]:
+    def suggestNewCourses(self, missing_topics: List[str]) -> Dict[str, Any]:
         """
         Suggest courses to cover missing skills.
         """
@@ -55,20 +80,18 @@ class CourseAgent(BaseAgent):
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
           "suggested_courses": [ {{ "title": str, "topics": [str], "skill_level": str }} ]
         }}
         """)
-        structured = self.llm.invoke(
-            json_prompt.format(summary=summary)
-        )
+        structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getCourseImprovementSuggestions(self, course_id: int) -> Dict[str, Any]:
         """
@@ -85,10 +108,10 @@ class CourseAgent(BaseAgent):
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
           "course_id": int,
@@ -100,7 +123,7 @@ class CourseAgent(BaseAgent):
         """)
         structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getMostInDemandTopics(self) -> Dict[str, Any]:
         """
@@ -127,7 +150,7 @@ class CourseAgent(BaseAgent):
         """)
         structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getCourseMarketFit(self, course_id: int) -> Dict[str, Any]:
         """
@@ -141,10 +164,10 @@ class CourseAgent(BaseAgent):
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
           "course_id": int,
@@ -155,8 +178,7 @@ class CourseAgent(BaseAgent):
         """)
         structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
-
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getCourseCompetitorAnalysis(self, course_id: int) -> Dict[str, Any]:
         """
@@ -171,10 +193,10 @@ class CourseAgent(BaseAgent):
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
           "course_id": int,
@@ -186,8 +208,7 @@ class CourseAgent(BaseAgent):
         """)
         structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
-
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getEmergingTopicsForCourses(self) -> Dict[str, Any]:
         """
@@ -201,10 +222,10 @@ class CourseAgent(BaseAgent):
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
           "emerging_topics": [str],
@@ -213,32 +234,10 @@ class CourseAgent(BaseAgent):
         """)
         structured = self.llm.invoke(json_prompt.format(summary=summary))
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
 
 if __name__ == "__main__":
     course_agent = CourseAgent()
-
-    # print(course_agent.getCoursesForSkillGap(1, 101))
-    # print(course_agent.analyzeCourseCoverage([201, 202], ["Data Structures", "Linear Algebra"]))
-    # print(course_agent.suggestNewCourses(["Linear Algebra", "Probability", "Deep Learning", "Large-Language Models"]))
-
-    # Test: recommend improvements for a given course
-    print("\n--- getCourseImprovementSuggestions ---")
-    print(course_agent.getCourseImprovementSuggestions(201))
-
-    # Test: identify most in-demand topics not covered by courses
-    print("\n--- getMostInDemandTopics ---")
-    print(course_agent.getMostInDemandTopics())
-
-    # Test: evaluate course market fit
-    print("\n--- getCourseMarketFit ---")
-    print(course_agent.getCourseMarketFit(202))
-
-    # Test: competitor analysis for a course
-    print("\n--- getCourseCompetitorAnalysis ---")
-    print(course_agent.getCourseCompetitorAnalysis(203))
-
-    # Test: emerging topics for new course creation
     print("\n--- getEmergingTopicsForCourses ---")
     print(course_agent.getEmergingTopicsForCourses())

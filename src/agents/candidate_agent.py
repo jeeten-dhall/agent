@@ -1,29 +1,49 @@
+import json
+import re
+from typing import Dict, Any
 from dotenv import load_dotenv
 import os
 
 from agents.base_agent import BaseAgent
-
-from typing import Dict, Any
 from langchain.prompts import PromptTemplate
+
+
+def _parse_llm_json(raw: str) -> Dict[str, Any]:
+    """
+    Extract and parse the first valid JSON object/array from the LLM response.
+    Cleans away markdown fences and extra explanations.
+    """
+    try:
+        cleaned = raw.strip()
+
+        # Remove fenced code block markers like ```json ... ```
+        cleaned = re.sub(r"^```[a-zA-Z]*", "", cleaned, flags=re.MULTILINE)
+        cleaned = re.sub(r"```$", "", cleaned, flags=re.MULTILINE).strip()
+
+        # Try to find the first {...} or [...] block
+        match = re.search(r"(\{.*\}|\[.*\])", cleaned, flags=re.DOTALL)
+        if match:
+            return json.loads(match.group(1))
+
+        # If no block is found, attempt direct parsing
+        return json.loads(cleaned)
+
+    except Exception as e:
+        return {"error": f"Failed to parse JSON: {str(e)}", "raw": raw}
+
 
 class CandidateAgent(BaseAgent):
     def __init__(self):
         super().__init__(name="Candidate")
 
     def getSkillGap(self, candidate_id: int, job_id: int) -> Dict[str, Any]:
-        """
-        Compute skill gap between a candidate and a job.
-        Returns dict with both structured data and summary.
-        """
         query = (
             f"What is the skill gap between candidate id {candidate_id} "
-            f"and job id {job_id}? Mention the topic and gap pairs in the summary. Suggest courses that can fill the gap."
+            f"and job id {job_id}? Mention the topic and gap pairs in the summary. "
+            f"Suggest courses that can fill the gap."
         )
-        print("Running first query to agent...")
-        summary = self.run(query)   # natural language summary
-        print("Got summary:", summary)
+        summary = self.run(query)
 
-        # Ask LLM to return JSON structure from that summary
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
 
@@ -40,23 +60,12 @@ class CandidateAgent(BaseAgent):
         }}
         """)
         structured = self.llm.invoke(
-            json_prompt.format(
-                summary=summary,
-                candidate_id=candidate_id,
-                job_id=job_id
-            )
+            json_prompt.format(summary=summary, candidate_id=candidate_id, job_id=job_id)
         )
 
-        return {
-            "summary": summary,
-            "structured": structured.content
-        }
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getCareerPath(self, candidate_id: int, desired_job_id: int) -> Dict[str, Any]:
-        """
-        Suggest a step-by-step career path or learning plan to reach the desired job.
-        Returns summary and structured JSON.
-        """
         query = (
             f"Candidate id {candidate_id} wants to become job id {desired_job_id}. "
             f"Suggest a learning path and milestones with timelines."
@@ -79,19 +88,12 @@ class CandidateAgent(BaseAgent):
         }}
         """)
         structured = self.llm.invoke(
-            json_prompt.format(
-                summary=summary,
-                candidate_id=candidate_id,
-                desired_job_id=desired_job_id
-            )
+            json_prompt.format(summary=summary, candidate_id=candidate_id, desired_job_id=desired_job_id)
         )
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getSkillsReport(self, candidate_id: int) -> Dict[str, Any]:
-        """
-        Generate candidate's skill report.
-        """
         query = f"Candidate id {candidate_id}: summarize strengths, weaknesses, and opportunities in topics."
         summary = self.run(query)
 
@@ -109,18 +111,11 @@ class CandidateAgent(BaseAgent):
           "opportunities": [ {{ "topic": str, "recommendation": str }} ]
         }}
         """)
-        structured = self.llm.invoke(
-            json_prompt.format(summary=summary, candidate_id=candidate_id)
-        )
+        structured = self.llm.invoke(json_prompt.format(summary=summary, candidate_id=candidate_id))
 
-        return {"summary": summary, "structured": structured.content}
-
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
     def getRelevantJobsForCandidate(self, candidate_id: int) -> Dict[str, Any]:
-        """
-        Identify the most relevant jobs for a candidate based on their current skills.
-        Returns both a summary and structured JSON.
-        """
         query = (
             f"List the most relevant jobs for candidate id {candidate_id} based on their skills. "
             f"For each job, include a match score, required gaps, and why it is suitable."
@@ -129,10 +124,10 @@ class CandidateAgent(BaseAgent):
 
         json_prompt = PromptTemplate.from_template("""
         Extract structured JSON from the following summary.
-    
+
         Summary:
         {summary}
-    
+
         Return JSON with the following format:
         {{
           "candidate_id": {candidate_id},
@@ -147,20 +142,11 @@ class CandidateAgent(BaseAgent):
           ]
         }}
         """)
-        structured = self.llm.invoke(
-            json_prompt.format(summary=summary, candidate_id=candidate_id)
-        )
+        structured = self.llm.invoke(json_prompt.format(summary=summary, candidate_id=candidate_id))
 
-        return {"summary": summary, "structured": structured.content}
+        return {"summary": summary, "structured": _parse_llm_json(structured.content)}
 
 
 if __name__ == "__main__":
-    candidate_agent = CandidateAgent()
-
-    # print(candidate_agent.getSkillGap(1, 101))
-
-    # print(candidate_agent.getCareerPath(1, 101))
-    # print(candidate_agent.getSkillsReport(1))
-
-    print(candidate_agent.getRelevantJobsForCandidate(1))
-
+    agent = CandidateAgent()
+    print(agent.getRelevantJobsForCandidate(1))
