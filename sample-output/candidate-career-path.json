@@ -1,0 +1,38 @@
+http://localhost:8000/candidate/1/career-path/101
+
+{
+	"summary": "Timo should follow this learning path over 16 weeks: Improve Data Structures (4 weeks), Strengthen Linear Algebra (4 weeks), Learn Probability (4 weeks), and Acquire Machine Learning Skills (4 weeks). He can take the courses \"Mathematics for ML,\" \"Probability and Statistics,\" and \"Intro to Machine Learning\" to achieve the necessary skills for the Machine Learning Engineer position.",
+	"structured": {
+		"candidate_id": 1,
+		"job_id": 101,
+		"milestones": [
+			{
+				"topic": "Data Structures",
+				"target_level": 1.0,
+				"suggested_courses": []
+			},
+			{
+				"topic": "Linear Algebra",
+				"target_level": 1.0,
+				"suggested_courses": []
+			},
+			{
+				"topic": "Probability",
+				"target_level": 1.0,
+				"suggested_courses": [
+					"Probability and Statistics"
+				]
+			},
+			{
+				"topic": "Machine Learning Skills",
+				"target_level": 1.0,
+				"suggested_courses": [
+					"Mathematics for ML",
+					"Intro to Machine Learning"
+				]
+			}
+		],
+		"timeline_months": 4,
+		"explanation": "Timo should follow this learning path over 16 weeks, focusing on improving data structures, strengthening linear algebra, learning probability, and acquiring machine learning skills."
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"summary": "The most relevant jobs for candidate Matthew (ID: 2) are:\n1. **Software Engineer**: Match Score: 0.575, Gaps: SQL (0.0), Machine Learning (0.5). Suitable due to strong skills in Data Structures and Algorithms.\n2. **Machine Learning Engineer**: Match Score: 0.54, Gaps: Linear Algebra (0.2), Machine Learning (0.7). Suitable due to strong skills in Data Structures and Algorithms, but lacks knowledge in Machine Learning.",
+	"structured": {
+		"candidate_id": 2,
+		"relevant_jobs": [
+			{
+				"job_id": 1,
+				"title": "Software Engineer",
+				"match_score": 0.575,
+				"missing_topics": [
+					"SQL",
+					"Machine Learning"
+				],
+				"explanation": "Suitable due to strong skills in Data Structures and Algorithms."
+			},
+			{
+				"job_id": 2,
+				"title": "Machine Learning Engineer",
+				"match_score": 0.54,
+				"missing_topics": [
+					"Linear Algebra",
+					"Machine Learning"
+				],
+				"explanation": "Suitable due to strong skills in Data Structures and Algorithms, but lacks knowledge in Machine Learning."
+			}
+		]
+	}
+}

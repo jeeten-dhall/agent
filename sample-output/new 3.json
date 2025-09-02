@@ -1,0 +1,41 @@
+{
+	"summary": "Emerging or trending topics in jobs that are not adequately covered by existing courses include Algorithms, SQL, Deep Learning, and Transformers. Course creators should develop content in these areas.",
+	"structured": {
+		"emerging_topics": [
+			"Algorithms",
+			"SQL",
+			"Deep Learning",
+			"Transformers"
+		],
+		"recommended_course_ideas": [
+			{
+				"title": "Introduction to Algorithms",
+				"topics": [
+					"Algorithms"
+				],
+				"target_audience": "Beginner to Intermediate"
+			},
+			{
+				"title": "SQL for Data Analysis",
+				"topics": [
+					"SQL"
+				],
+				"target_audience": "Data Analysts and Beginners"
+			},
+			{
+				"title": "Deep Learning Fundamentals",
+				"topics": [
+					"Deep Learning"
+				],
+				"target_audience": "Data Scientists and Machine Learning Enthusiasts"
+			},
+			{
+				"title": "Transformers in Natural Language Processing",
+				"topics": [
+					"Transformers"
+				],
+				"target_audience": "AI Researchers and Developers"
+			}
+		]
+	}
+}

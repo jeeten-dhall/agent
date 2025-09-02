@@ -1,0 +1,43 @@
+http://localhost:8000/job/105/candidate/2/skills-report
+
+{
+	"summary": "Matthew has strengths in Data Structures and Algorithms but weaknesses in Probability and Linear Algebra, which are below the job requirements for the Large-Language Models Engineer position. He should take the following courses to improve: \"Probability and Statistics,\" \"Mathematics for ML,\" and \"Intro to Machine Learning.\" With dedicated study, he could be ready for the job in 3-6 months.",
+	"structured": {
+		"candidate_id": 2,
+		"job_id": 105,
+		"strengths": [
+			{
+				"topic": "Data Structures",
+				"score": 8.0
+			},
+			{
+				"topic": "Algorithms",
+				"score": 8.0
+			}
+		],
+		"weaknesses": [
+			{
+				"topic": "Probability",
+				"score": 4.0
+			},
+			{
+				"topic": "Linear Algebra",
+				"score": 4.0
+			}
+		],
+		"opportunities": [
+			{
+				"topic": "Probability and Statistics",
+				"recommendation": "Take this course to improve understanding of probability."
+			},
+			{
+				"topic": "Mathematics for ML",
+				"recommendation": "Take this course to strengthen mathematical foundations for machine learning."
+			},
+			{
+				"topic": "Intro to Machine Learning",
+				"recommendation": "Take this course to gain foundational knowledge in machine learning."
+			}
+		]
+	}
+}

@@ -1,0 +1,41 @@
+http://localhost:8000/courses/emerging-topics
+
+{
+	"summary": "Course creators should develop content in the following areas: Deep Learning, Transformers, and SQL, as these topics are required by emerging job roles but are not adequately covered by existing courses.",
+	"structured": {
+		"emerging_topics": [
+			"Deep Learning",
+			"Transformers",
+			"SQL"
+		],
+		"recommended_course_ideas": [
+			{
+				"title": "Deep Learning Fundamentals",
+				"topics": [
+					"Deep Learning",
+					"Neural Networks",
+					"Machine Learning"
+				],
+				"target_audience": "Aspiring Data Scientists"
+			},
+			{
+				"title": "Transformers in Natural Language Processing",
+				"topics": [
+					"Transformers",
+					"NLP",
+					"Machine Learning"
+				],
+				"target_audience": "AI Researchers and Developers"
+			},
+			{
+				"title": "SQL for Data Analysis",
+				"topics": [
+					"SQL",
+					"Data Manipulation",
+					"Database Management"
+				],
+				"target_audience": "Data Analysts and Business Intelligence Professionals"
+			}
+		]
+	}
+}

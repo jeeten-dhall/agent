@@ -1,0 +1,17 @@
+{
+	"summary": "The most relevant job for candidate id 1 (Timo) is **Software Engineer** with a match score of 0.750. The required gap is in Machine Learning (0.5). This job is suitable because Timo has strong skills in Data Structures and Algorithms, which are crucial for this role.",
+	"structured": {
+		"candidate_id": 1,
+		"relevant_jobs": [
+			{
+				"job_id": 1,
+				"title": "Software Engineer",
+				"match_score": 0.75,
+				"missing_topics": [
+					"Machine Learning"
+				],
+				"explanation": "Timo has strong skills in Data Structures and Algorithms, which are crucial for this role."
+			}
+		]
+	}
+}

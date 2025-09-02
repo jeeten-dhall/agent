@@ -1,0 +1,23 @@
+{
+	"summary": "- **Timo**: Weak match due to low scores in Data Structures and Linear Algebra.\n- **Matthew**: Strong match with excellent scores in Data Structures and Algorithms, meets Probability requirement.\n- **Michael**: Moderate match with strong scores in Linear Algebra and Machine Learning, but weak in Algorithms and lacks scores in other required topics.",
+	"structured": {
+		"job_id": 101,
+		"candidate_rankings": [
+			{
+				"candidate_id": 1,
+				"score": 0.9,
+				"reason": "Strong match with excellent scores in Data Structures and Algorithms, meets Probability requirement."
+			},
+			{
+				"candidate_id": 2,
+				"score": 0.5,
+				"reason": "Moderate match with strong scores in Linear Algebra and Machine Learning, but weak in Algorithms and lacks scores in other required topics."
+			},
+			{
+				"candidate_id": 3,
+				"score": 0.2,
+				"reason": "Weak match due to low scores in Data Structures and Linear Algebra."
+			}
+		]
+	}
+}

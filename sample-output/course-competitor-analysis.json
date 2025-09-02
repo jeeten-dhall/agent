@@ -1,0 +1,24 @@
+http://localhost:8000/course/202/competitor-analysis
+
+{
+	"summary": "Course 202 (\"Probability and Statistics\") offers a focused and in-depth exploration of probability and statistics, making it ideal for those seeking a strong foundation in these areas. In contrast, Course 204 (\"Mathematics for ML\") provides a broader perspective by integrating probability with other mathematical topics relevant to machine learning, which may appeal to those looking to apply these concepts in practical scenarios. However, it may not cover probability as deeply as Course 202.",
+	"structured": {
+		"course_id": 202,
+		"competitors": [
+			{
+				"id": 204,
+				"title": "Mathematics for ML"
+			}
+		],
+		"strengths": [
+			"Focused and in-depth exploration of probability and statistics",
+			"Ideal for those seeking a strong foundation in probability and statistics"
+		],
+		"weaknesses": [
+			"May not integrate probability with other mathematical topics as broadly as competitors"
+		],
+		"unique_differentiators": [
+			"Deep coverage of probability"
+		]
+	}
+}

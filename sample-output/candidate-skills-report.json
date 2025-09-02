@@ -1,0 +1,51 @@
+http://localhost:8000/job/101/candidate/1/skills-report
+
+{
+	"summary": "Timo's strengths include a high score in Algorithms (0.8). His weaknesses are in Data Structures (0.6), Linear Algebra (0.4), and he has no scores in Probability and Machine Learning. He has opportunities to improve in these areas. Suggested courses include \"Advanced Data Structures,\" \"Mathematics for ML,\" \"Probability and Statistics,\" and \"Intro to Machine Learning.\" With dedicated study, Timo could be ready for the job in approximately 3-6 months.",
+	"structured": {
+		"candidate_id": 1,
+		"job_id": 101,
+		"strengths": [
+			{
+				"topic": "Algorithms",
+				"score": 0.8
+			}
+		],
+		"weaknesses": [
+			{
+				"topic": "Data Structures",
+				"score": 0.6
+			},
+			{
+				"topic": "Linear Algebra",
+				"score": 0.4
+			},
+			{
+				"topic": "Probability",
+				"score": null
+			},
+			{
+				"topic": "Machine Learning",
+				"score": null
+			}
+		],
+		"opportunities": [
+			{
+				"topic": "Data Structures",
+				"recommendation": "Advanced Data Structures"
+			},
+			{
+				"topic": "Linear Algebra",
+				"recommendation": "Mathematics for ML"
+			},
+			{
+				"topic": "Probability",
+				"recommendation": "Probability and Statistics"
+			},
+			{
+				"topic": "Machine Learning",
+				"recommendation": "Intro to Machine Learning"
+			}
+		]
+	}
+}
